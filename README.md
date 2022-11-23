@@ -1,4 +1,25 @@
-# realtime-chat-app-golang
+# Realtime Chatapp Golang
+# Setup & Instalization:
+```
+mkdir backend
+cd backend
+go mod init github.com/GenesisBlock3301/realtime-chat-app-golang/
+
+create main.go
+go run main.go
+mkdir frontend
+
+```
+Packages:
+```
+"github.com/gin-gonic/gin"
+"github.com/gorilla/websocket"
+"log"
+"net/http"
+```
+
+# Some understanding on Package:
+
 `http.ResponseWriter`  This is the mechanism used for sending responses to any connected HTTP clients. 
 It's also how response headers are set<br>
 `w.Write([]byte("<h1>Welcome to my web server!</h1>"))`
