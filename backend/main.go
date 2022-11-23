@@ -52,21 +52,6 @@ func main() {
 
 		log.Println("Connected")
 		read(hub, ws)
-		// THis is for only one client
-		//for {
-		//	var message Message
-		//	err := ws.ReadJSON(&message)
-		//	if err != nil {
-		//		log.Printf("Error occured in : %v\n", err)
-		//		break
-		//	}
-		//	log.Println(message)
-		//
-		//	//	send message from server
-		//	if err := ws.WriteJSON(message); err != nil {
-		//		log.Printf("Error occured in : %v\n", err)
-		//	}
-		//}
 	})
 	err := router.Run("localhost:8080")
 	if err != nil {

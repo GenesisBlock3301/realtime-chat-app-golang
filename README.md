@@ -17,7 +17,54 @@ Packages:
 "log"
 "net/http"
 ```
+# For handling Single client:
+```go
+//THis is for only one client
+for {
+	var message Message
+	err := ws.ReadJSON(&message)
+	if err != nil {
+		log.Printf("Error occured in : %v\n", err)
+		break
+	}
+	log.Println(message)
+	//	send message from server
+	if err := ws.WriteJSON(message); err != nil {
+		log.Printf("Error occured in : %v\n", err)
+		}
+}
+```
 
+# For handling multiple client:
+```go
+type Hub struct {
+	clients   map[*websocket.Conn]bool
+	broadcast chan Message
+}
+
+func NewHub() *Hub {
+	return &Hub{
+		clients:   make(map[*websocket.Conn]bool),
+		broadcast: make(chan Message),
+	}
+}
+
+func (h *Hub) run() {
+	for {
+		select {
+		case message := <-h.broadcast:
+			for client := range h.clients {
+				if err := client.WriteJSON(message); err != nil {
+					log.Printf("error occurred: %v", err)
+				}
+			}
+
+		}
+	}
+}
+
+
+```
 # Some understanding on Package:
 
 `http.ResponseWriter`  This is the mechanism used for sending responses to any connected HTTP clients. 
